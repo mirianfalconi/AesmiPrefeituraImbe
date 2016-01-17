@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html lang="pt-br">
+    <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+                    <link rel="icon" type="image/jpg" href="{{ url_for('static', filename='img/ico.jpg') }}" />
+                        <link href="{{ url_for('static', filename='css/frente.css') }}" rel="stylesheet">
+                        <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+                    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-2.1.4.min.js')}}"></script>
+                <script type="text/javascript" src="{{ url_for('static' , filename='bootstrap/js/bootstrap.min.js')}}"></script>
+            <meta name="description" content="Analista de Sistemas">
+        <meta name="author" content="Mirian Falconi">
+    <title>AESMI</title>
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<nav class="navbar-inner">
+        <div class="container">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+
+                        <a class="menuCor" href="/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
+
+
+                    </li>
+                    <li>
+                        <a class="menuCor" href="/indexProtocolo">Protocolos</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    </nav>
+    {% block body %}
+{% endblock %}

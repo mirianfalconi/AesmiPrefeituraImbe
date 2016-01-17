@@ -1,0 +1,31 @@
+{% extends "adminmenu.html" %}
+{% block body %}
+
+<nav><a href="{{ url_for('print_pdf', name=name) }}">Imprimir Relatório</a></nav>
+<p> {{ name }}!</p>
+
+<!-- depois
+<fieldset id="checkArray">
+    <input type="checkbox" name="chk[]" value="cpf"> CPF<br>
+    <input type="checkbox" name="chk[]" value="rg"> RG<br>
+    <input type="checkbox" name="chk[]" value="telefone"> Telefone<br>
+    <input type="checkbox" name="chk[]" value="endereco"> Endereço<br>
+    <input type="checkbox" name="chk[]" value="bairro"> Bairro<br>
+    <input type="checkbox" name="chk[]" value="cep"> CEP<br>
+    <input type="checkbox" name="chk[]" value="local"> Local da Instituição<br>
+    <input type="checkbox" name="chk[]" value="instituicao"> Instituição<br>
+    <input type="checkbox" name="chk[]" value="curso"> Curso<br>
+</fieldset>
+
+-->
+
+<script>
+
+//var atLeastOneIsChecked = $('#checkArray :checkbox:checked').length > 0;
+
+// or, without the container:
+
+//var atLeastOneIsChecked = $('input[name="chk[]"]:checked').length > 0;
+
+</script>
+{% endblock %}

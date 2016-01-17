@@ -1,0 +1,35 @@
+{% extends "adminmenu.html" %}
+{% block body %}
+<div id="page-wrapper">
+	<div class="row">
+		<div class="col-lg-6">
+			<div class="container">
+				<div class="col-md-5">
+					<div class="form-area">
+
+                        <h3 style="margin-bottom: 25px; text-align: center; color: black;">Novo Usuário</h3>
+
+                        {% from "signinmacro.html" import render_field %}
+                        <form method=post action="/signUp">
+                            {{ render_field(form.username, 'Nome', '[A-Za-z\s]+$') }}
+                            <div class="form-group">
+                                <input class='form-control' name="email" type="email" placeholder="email">
+                            </div>
+                            {{ render_field(form.password, 'Senha', '^.{6,10}$', 'password') }}
+                            {{ render_field(form.confirm, 'Confirme a Senha', '^.{6,10}$', 'password') }}
+
+                                {% if error %}
+                                    <div class="well well-sm">
+                                       <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                       {{ error }}
+                                    </div>
+                                {% endif %}
+                            <button type="submit"  value=signUp class="btn btn-primary pull-right">Enviar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

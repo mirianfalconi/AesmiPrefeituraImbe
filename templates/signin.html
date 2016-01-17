@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block body %}
+<div id="page-wrapper">
+	<div class="row">
+		<div class="col-lg-6" style="margin: 0 auto !important; float: none;">
+			<div class="container">
+				<div class="col-md-5">
+					<div class="form-area">
+
+                        <h3 style="margin-bottom: 25px; text-align: center; color: black;">Admin</h3>
+
+                            {% from "signinmacro.html" import render_field %}
+                            <form class="form-signin" action="/signin" method="post" >
+
+                                <div class="form-group">
+                                    <input type="email" name="user" class="form-control" placeholder="Email" required autofocus>
+                                </div>
+                                {{ render_field(form.password, 'Senha', '^.{6,10}$', 'password') }}
+
+                                 {% if error %}
+                                    <div class="well well-sm">
+                                       <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                       {{ error }}
+                                    </div>
+                                 {% endif %}
+
+                            <button id="btnSignIn" class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

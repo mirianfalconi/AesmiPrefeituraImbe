@@ -1,0 +1,13 @@
+{% extends "adminmenu.html" %}
+{% block body %}
+
+{% for b in data %}
+        <div id="container">
+            <h2 class="featurette-heading"> {{ b.4 }} <span class="text-muted"> {{ b.1 }} </span></h2>
+            <p class="lead"> {{ b.0 }} </p>
+            <span class="text-muted"> {{ b.3 }} </span>
+            <hr class="featurette-divider">
+        </div>
+{% endfor %}
+
+{% endblock %}

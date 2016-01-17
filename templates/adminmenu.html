@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+                <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+                <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/local.css') }}">
+      <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-2.1.4.min.js')}}"></script>
+    <script type="text/javascript" src="{{ url_for('static' , filename='bootstrap/js/bootstrap.min.js')}}"></script>
+   <!-- <script type="text/javascript" src="{{ url_for('static' , filename='js/helium.js')}}"></script> -->
+</head>
+<div id="wrapper">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Capa</a>
+            </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav side-nav">
+                <li {% if request.path =="/controle" %} class="selected" {% endif %} ><a href="/controle"><i class="fa fa-list-ol"></i> Controle</a></li>
+                <li {% if request.path =="/admin" %} class="selected" {% endif %} ><a href="/admin"><i class="fa fa-list-ol"></i> Cadastro</a></li>
+                <li {% if request.path =="/relatorio" %} class="selected" {% endif %} ><a href="/relatorio"><i class="fa fa-list-ol"></i> Relatório</a></li>
+                <li {% if request.path =="/signUp" %} class="selected" {% endif %}><a href="/signUp"><i class="fa fa-globe"></i> Usuários Admin</a></li>
+                <li {% if request.path =="/protocolos" %} class="selected" {% endif %}><a href="/protocolos"><i class="fa fa-globe"></i> Protocolos</a></li>
+                <li {% if request.path =="/grafico" %} class="selected" {% endif %}><a href="/grafico"><i class="fa fa-globe"></i> Gráfico</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right navbar-user">
+                <li class="dropdown messages-dropdown">
+                    <a href="/protocolos" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> Mensagens <span class="badge">{{ mensagens }}</span></a>
+                </li>
+                <li class="dropdown user-dropdown">
+                    <a href="{{ url_for('admin') }}" class="dropdown-toggle" data-toggle="dropdown" ><i class="fa fa-user"></i> {{ name }}<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/logout"><i class="fa fa-power-off"></i> Sair</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    {% block body %}
+{% endblock %}

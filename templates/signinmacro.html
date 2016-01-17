@@ -1,0 +1,13 @@
+{% macro render_field(field, ph, pn, ty) %}
+  <div class="form-group">
+      {{ field(class_='form-control', placeholder=ph, pattern=pn, type=ty)|safe }}
+  {% if field.errors %}
+    <div class="well well-sm">
+    {% for error in field.errors %}
+       <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+       {{ error }}
+    {% endfor %}
+    </div>
+  {% endif %}
+  </div>
+{% endmacro %}
