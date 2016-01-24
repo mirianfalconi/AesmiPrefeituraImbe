@@ -3,7 +3,6 @@ Flask==0.10.1
 Flask-MySQL==1.3
 Flask-WTF==0.12
 Flask-WeasyPrint==0.5
-FlaskApp==1.0
 FormEncode==1.3.0
 FormEncode-Jinja2==0.1.2
 Jinja2==2.8

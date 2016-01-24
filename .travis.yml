@@ -5,7 +5,7 @@ python:
   - "3.3"
 install:
 # install dependencies from setup.py
-   - pip install --upgrade pip .
+   - pip install .
 # install dependencies from requirements.txt
 #   - pip install -r requirements.txt
 # run nose tests
