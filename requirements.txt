@@ -20,3 +20,4 @@ itsdangerous>=0.24
 pycparser>=2.14
 six>=1.10.0
 tinycss>=0.3
+lxml==3.4.4
