@@ -10,4 +10,4 @@ build:
         code: pip install -r requirements.txt
     - script:
         name: echo python information
-        code: python app.py
+        code: python flaskapp.py
