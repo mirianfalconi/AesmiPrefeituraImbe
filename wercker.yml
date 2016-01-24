@@ -8,6 +8,3 @@ build:
     - script:
         name: echo python information
         code: pip install -r requirements.txt
-    - script:
-        name: echo python information
-        code: python flaskapp.py
