@@ -1,4 +1,3 @@
-import os
 from flask import Flask, render_template, json, request, redirect, session, url_for, jsonify
 from hash import User
 from forms import SignForm, RegistrationForm, SignIn, IndexProtocoloForm, ComunicadoForm
