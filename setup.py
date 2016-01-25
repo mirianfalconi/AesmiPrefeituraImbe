@@ -10,5 +10,5 @@ setup(name='FlaskApp',
                         'Flask-WeasyPrint>=0.5', 'FormEncode>=1.3.0', 'FormEncode-Jinja2>=0.1.2', 'Jinja2>=2.8',
                         'MarkupSafe>=0.23', 'Pyphen>=0.9.2', 'WTForms>=2.0.2', 'WeasyPrint>=0.24', 'Werkzeug>=0.10.4',
                         'cairocffi>=0.7.2', 'cffi>=1.3.1', 'click>=5.1', 'cssselect>=0.9.1', 'html5lib>=0.9999999',
-                        'itsdangerous>=0.24', 'pycparser>=2.14', 'six>=1.10.0', 'tinycss>=0.3'],
+                        'itsdangerous>=0.24', 'pycparser>=2.14', 'six>=1.10.0', 'tinycss>=0.3', 'lxml=3.5.0'],
       )
