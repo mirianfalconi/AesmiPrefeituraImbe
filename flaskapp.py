@@ -197,6 +197,5 @@ def acessa_login(_name, _email, _password):
 
 
 if __name__ == "__main__":
-    app.debug = True
-    app.run(app.config['IP'], app.config['PORT'])
+    app.run(app.config['IP'], app.config['PORT'], debug=True)
 
