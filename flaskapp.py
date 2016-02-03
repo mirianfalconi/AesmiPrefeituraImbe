@@ -27,7 +27,13 @@ def admin():
 
 @app.route('/escola', methods=['POST', 'GET'])
 def escola():
-    return render_template('escola.html')
+    if session.get('user'):
+        name = session.get('user')
+        bairro = acessa_sql('SELECT bairro FROM BAIRRO;')
+        form = RegistrationForm(request.form)
+        return render_template('escola.html', form=form, bairro=bairro, name=name)
+    else:
+        return redirect(url_for('signin'))
 
 
 @app.route('/postForm', methods=['GET', 'POST'])
