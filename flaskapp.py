@@ -25,6 +25,11 @@ def admin():
         return redirect(url_for('signin'))
 
 
+@app.route('/escola', methods=['POST', 'GET'])
+def escola():
+    return render_template('escola.html')
+
+
 @app.route('/postForm', methods=['GET', 'POST'])
 def postForm():
     form = RegistrationForm(request.form)
