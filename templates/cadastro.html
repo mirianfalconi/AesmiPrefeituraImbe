@@ -34,6 +34,14 @@
 
 								<button type="submit" id="submit" name="submit" class="btn btn-primary pull-right">Enviar</button>
 							</form>
+
+								<ul class="nav nav-pills nav-justified" role="tablist">
+									<li role="presentation" {% if request.path =="/cadastro" %} class="active" {% endif %}>
+										<a href="{{ url_for('cadastro') }}" >
+											<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+										</a>
+									</li>
+								</ul>
 						</div>
 					</div>
 				</div>
