@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b6f82b29-7f44-458f-a2ca-27602acf62b3" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/cadastro.html" afterPath="$PROJECT_DIR$/templates/cadastro.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/escola.html" afterPath="$PROJECT_DIR$/templates/escola.html" />
     </list>
     <ignored path="job.iws" />
@@ -40,8 +39,8 @@
       <file leaf-file-name="escola.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/escola.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.25396827">
-              <caret line="41" column="12" selection-start-line="41" selection-start-column="12" selection-end-line="41" selection-end-column="12" />
+            <state vertical-scroll-proportion="0.70017636">
+              <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -299,12 +298,6 @@
       <created>1450384287163</created>
       <option name="number" value="Default" />
       <updated>1450384287163</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Trabalho">
-      <created>1453077828666</created>
-      <option name="number" value="00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1453077828666</updated>
     </task>
     <task id="LOCAL-00004" summary="Trabalho">
       <created>1453077841481</created>
@@ -594,7 +587,13 @@
       <option name="project" value="LOCAL" />
       <updated>1454627236841</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="Trabalho">
+      <created>1454627574204</created>
+      <option name="number" value="00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1454627574208</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -997,8 +996,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/escola.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.25396827">
-          <caret line="41" column="12" selection-start-line="41" selection-start-column="12" selection-end-line="41" selection-end-column="12" />
+        <state vertical-scroll-proportion="0.70017636">
+          <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
           <folding />
         </state>
       </provider>

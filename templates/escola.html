@@ -81,8 +81,10 @@
 		  return false;
     });
 
-    $( "#autocomplete" ).autocomplete({
-	  source: [ "c++", "java", "php", "coldfusion", "javascript", "asp", "ruby" ]
+    $( "#autocomplete" ).focusin(function() {
+			$( "#autocomplete" ).autocomplete({
+			  source: [ "c++", "java", "php", "coldfusion", "javascript", "asp", "ruby" ]
+			});
 	});
 
 </script>
