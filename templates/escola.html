@@ -12,28 +12,9 @@
 
 								<h3 style="margin-bottom: 25px; text-align: center; color: black;">Cadastro</h3>
 
-								{{ render_field(form.cpf, 'CPF', '\d{3}\.\d{3}\.\d{3}-\d{2}') }}
-								{{ render_field(form.nome, 'Nome', '[a-zA-Z\s]+$') }}
-								{{ render_field(form.rg, 'RG', '\d{5}\-\d{5}') }}
-								{{ render_field(form.phone, 'Celular', '\([0-9]{2}\) [0-9]{4,6}-[0-9]{3,4}$') }}
-
-
-								<div class="form-group">
-									<select name="bairro" id="bairro" class="form-control">
-										{% for d in bairro %}
-											{% for b in d %}
-												<option value="{{ b }}">{{ b }}</option>
-											{% endfor %}
-										{% endfor %}
-									</select>
-								</div>
-
 
 								<input id="autocomplete">
 
-
-								{{ render_field(form.rua, 'Rua', '[a-zA-Z\s]+$') }}
-								{{ render_field(form.casa, 'Número', '[0-9]{2,8}$') }}
 
 								</form>
 
@@ -64,27 +45,9 @@
     <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-ui.js')}}"></script>
 	<script>
 
-	var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-
-	$( "#cpf" ).blur(function() {
-
-		  $.getJSON($SCRIPT_ROOT + '/add', {
-			cpf: $('#cpf').val()
-			}, function(data) {
-			$("#nome").val(data.nome);
-			$('input[name=nome]').focus().select();
-			$("#rg").val(data.rg);
-			$( "#bairro option:selected" ).text(data.bairro);
-			$("#rua").val(data.rua);
-			$("#casa").val(data.casa);
-			$("#phone").val(data.phone);
-		  });
-		  return false;
-    });
-
     $(document).ready(function(){
 		$("#autocomplete").autocomplete({
-		source: [ "c++", "java", "php", "coldfusion", "javascript", "asp", "ruby" ],
+		source: "{{url_for('autocomplete')}}",
 		minLength: 1
 		});
 	});

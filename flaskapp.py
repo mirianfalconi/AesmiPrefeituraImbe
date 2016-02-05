@@ -35,6 +35,14 @@ def escola():
     else:
         return redirect(url_for('signin'))
 
+NAMES=["abc","abcd","abcde","abcdef"]
+
+@app.route('/autocomplete',methods=['GET'])
+def autocomplete():
+    search = request.args.get('autocomplete')
+    app.logger.debug(search)
+    return jsonify(json_list=NAMES)
+
 
 @app.route('/postForm', methods=['GET', 'POST'])
 def postForm():
