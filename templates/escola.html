@@ -45,12 +45,16 @@
     <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-ui.js')}}"></script>
 	<script>
 
-    $(document).ready(function(){
-		$("#autocomplete").autocomplete({
-		source: "{{url_for('autocomplete')}}",
-		minLength: 1
-		});
-	});
+    $(function() {
+    $.ajax({
+        url: '{{ url_for("autocomplete") }}'
+        }).done(function (data) {
+            $('#autocomplete').autocomplete({
+                source: data.json_list,
+                minLength: 1
+            });
+        });
+    });
 
 </script>
 {% endblock %}

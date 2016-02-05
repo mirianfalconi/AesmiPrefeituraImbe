@@ -35,11 +35,14 @@ def escola():
     else:
         return redirect(url_for('signin'))
 
-NAMES=["abc","abcd","abcde","abcdef"]
+
+NAMES = ["abc","abcd","abcde","abcdef"]
+
 
 @app.route('/autocomplete',methods=['GET'])
 def autocomplete():
-    search = request.args.get('autocomplete')
+    search = request.args.get('term')
+
     app.logger.debug(search)
     return jsonify(json_list=NAMES)
 
@@ -68,7 +71,7 @@ def add():
         nome = data[0][0]
         rg = data[0][1]
         bairro = data[0][4]
-        rua =  data[0][2]
+        rua = data[0][2]
         casa = data[0][3]
         phone = data[0][5]
     return jsonify(nome=nome, rg=rg, bairro=bairro, rua=rua, casa=casa, phone=phone)
@@ -76,7 +79,7 @@ def add():
 
 @app.route('/')
 def index():
-    data  = acessa_proc('sp_selectComunicado', '8')
+    data = acessa_proc('sp_selectComunicado', '8')
     return render_template('index.html', data=data)
 
 
