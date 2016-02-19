@@ -7,16 +7,36 @@
 				<div class="col-md-5">
 					<div class="form-area">
 						{% from "formhelpers.html" import render_field %}
-							<form role="form" action="{{ url_for('postForm') }}" method="post">
+							<form id="escola" role="form" action="{{ url_for('postEscola') }}" method="post">
 								<br style="clear:both">
 
 								<h3 style="margin-bottom: 25px; text-align: center; color: black;">Cadastro</h3>
 
+								{{ render_field(form.cpf, 'CPF', '\d{3}\.\d{3}\.\d{3}-\d{2}') }}
 
-								<input id="autocomplete">
+								<div id="localInsert">
+								<div class="form-group">
+									<select name="local" id="local" class="form-control">
+										{% for d in local %}
+											{% for b in d %}
+												<option value="{{ b }}">{{ b }}</option>
+											{% endfor %}
+										{% endfor %}
+									</select>
+									<button class="glyphicon glyphicon-plus form-control" aria-hidden="true" id="insertLocal"></button>
+								</div>
+								</div>
 
+								<div id="instituicaoInsert">
+									<div class="form-group">
+										<select name="instituicao" id="instituicao" class="form-control"></select>
+										<button class="glyphicon glyphicon-plus form-control" aria-hidden="true" id="insertInstituicao"></button>
+									</div>
+								</div>
 
-								</form>
+								{{ render_field(form.curso, 'Curso', '[a-zA-Z\s]+$') }}
+
+							</form>
 
 								<br>
 
@@ -31,8 +51,10 @@
 											<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 										</a>
 									</li>
-									<li role="presentation" {% if request.path =="/escola" %} class="active" {% endif %}>
-										<button type="submit" id="submit" name="submit" aria-hidden="true">Enviar</button>
+									<li role="presentation">
+										<a id="enviar">
+											<span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+										</a>
 									</li>
 								</ul>
 						</div>
@@ -49,12 +71,76 @@
     $.ajax({
         url: '{{ url_for("autocomplete") }}'
         }).done(function (data) {
-            $('#autocomplete').autocomplete({
+
+            $('#curso').autocomplete({
                 source: data.json_list,
                 minLength: 1
             });
         });
     });
+
+    jQuery.fn.exists = function () {
+		return jQuery(this).length > 0 ? true : false;
+	};
+
+    $('#insertLocal').click(function(e){
+    	e.preventDefault();
+
+    	if( !($("#locais").exists()) ){
+			$('#localInsert').append(
+    			{{ render_field(form.locais, 'Novo Local', '[a-zA-Z\s]+$')|tojson|safe }}
+    		);
+		}
+		$('#locais').focus();
+	});
+
+	$('#insertInstituicao').click(function(e){
+    	e.preventDefault();
+
+    	if( !$("#insti").exists() ){
+			$('#instituicaoInsert').append(
+    			{{ render_field(form.insti, 'Nova instituição', '[a-zA-Z\s]+$')|tojson|safe }}
+    		);
+		}
+		$('#insti').focus();
+	});
+
+    var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+
+	var setaInstituicao = function() {
+
+		  $.getJSON($SCRIPT_ROOT + '/setInstituicao', {
+			local: $('#local').val()
+			}, function(data) {
+
+				$('#instituicao').empty();
+				for(key in data.instituicao) {
+					if((data.instituicao).hasOwnProperty(key)) {
+					  $('#instituicao').append('<option>' + data.instituicao[key] + '</option>');
+					}
+				}
+
+		  });
+
+		  return false;
+    }
+
+    $("#enviar").click(function() {
+
+    	$("#escola").submit();
+
+	});
+
+	var setaCpf = function() {
+
+		  $('#cpf').val('{{ cpf }}');
+
+    }
+
+	$(document).ready(setaCpf);
+   	$(document).ready(setaInstituicao);
+	$("#local").change(setaInstituicao);
+
 
 </script>
 {% endblock %}

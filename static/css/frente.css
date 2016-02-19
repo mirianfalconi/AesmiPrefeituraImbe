@@ -39,9 +39,6 @@ body {
     margin-right: 40px;
 }
 
-.featurette-image.pull-right {
-    margin-left: 40px;
-}
 
 .featurette-heading {
     font-size: 30px;
@@ -62,9 +59,6 @@ footer {
         margin-right: 20px;
     }
 
-    .featurette-image.pull-right {
-        margin-left: 20px;
-    }
 
     .featurette-heading {
         font-size: 35px;
@@ -86,9 +80,6 @@ footer {
         margin-right: 10px;
     }
 
-    .featurette-image.pull-right {
-        margin-left: 10px;
-    }
 
     .featurette-heading {
         font-size: 30px;
@@ -133,8 +124,4 @@ footer {
         margin-bottom: 10px;
     }
 
-    .featurette-image.pull-right {
-        margin-bottom: 10px;
-        margin-left: 0;
-    }
 }

@@ -1,6 +1,6 @@
 from flask import Flask, render_template, json, request, redirect, session, url_for, jsonify
 from hash import User
-from forms import SignForm, RegistrationForm, SignIn, IndexProtocoloForm, ComunicadoForm
+from forms import SignForm, RegistrationForm, SignIn, IndexProtocoloForm, ComunicadoForm, RegistrationCurso
 from db import acessa_proc, acessa_sql
 from momentjs import Markup, momentjs
 from flask_weasyprint import HTML, render_pdf
@@ -25,39 +25,74 @@ def admin():
         return redirect(url_for('signin'))
 
 
-@app.route('/escola', methods=['POST', 'GET'])
-def escola():
+@app.route('/escola/<cpf>/')
+@app.route('/escola', methods=['POST', 'GET'], defaults={'cpf': '000.000.000-00'})
+def escola(cpf):
     if session.get('user'):
         name = session.get('user')
-        bairro = acessa_sql('SELECT bairro FROM BAIRRO;')
-        form = RegistrationForm(request.form)
-        return render_template('escola.html', form=form, bairro=bairro, name=name)
+        local = acessa_sql('select local from LOCAL')
+        form = RegistrationCurso(request.form)
+        return render_template('escola.html', form=form, local=local, name=name, cpf=cpf)
     else:
         return redirect(url_for('signin'))
 
 
-NAMES = ["abc","abcd","abcde","abcdef"]
+@app.route('/postEscola', methods=['POST', 'GET'])
+def postEscola():
+    form = RegistrationCurso(request.form)
+    cpf = request.form.get('cpf')
+    instituicao = request.form.get('instituicao')
+    sql = str(cpf), form.curso.data, instituicao
+    local = request.form.get('local')
+    locais = request.form.get('locais')
+    insti = request.form.get('insti')
+    if locais:
+        if insti:
+            acessa_sql('INSERT INTO INSTITUICAO (ID_local, instituicao) VALUES((select ID_local from LOCAL where local=' + locais + '),' + insti + ');')
+            print 1
+        else:
+            print locais
+            sql = 'INSERT INTO LOCAL (local) VALUES ("' + locais + '");'
+            data = acessa_sql(sql)
+            print data
+    if insti:
+        if not locais:
+            print 3
+            acessa_sql('INSERT INTO INSTITUICAO (ID_local, instituicao) VALUES((select ID_local from LOCAL where local=' + local + '),' + insti + ');')
+    acessa_proc('sp_insertInfo_escola', sql)
+    return redirect('/admin')
+
+
+@app.route('/setInstituicao', methods=['POST', 'GET'])
+def setInstituicao():
+    local = request.args.get('local').encode('utf8')
+    parametros = str(local,)
+    data = acessa_sql('select instituicao from INSTITUICAO I, LOCAL L where L.ID_local=I.ID_local AND local=\'' + parametros + '\'')
+    if data is None:
+        return redirect('/escola')
+    return jsonify(instituicao=data)
 
 
 @app.route('/autocomplete',methods=['GET'])
 def autocomplete():
     search = request.args.get('term')
-
     app.logger.debug(search)
-    return jsonify(json_list=NAMES)
+    curso = acessa_sql('select curso from CURSO')
+    cursos = []
+    [cursos.append(x) for xs in curso for x in xs]
+    return jsonify(json_list=cursos)
 
 
 @app.route('/postForm', methods=['GET', 'POST'])
 def postForm():
     form = RegistrationForm(request.form)
     sql = form.cpf.data, form.nome.data, form.rg.data, form.bairro.data, form.rua.data, form.casa.data, form.phone.data
-    parametro = form.cpf.data,
-    data = acessa_proc('sp_selectInserteParaAlunos', parametro)
-    if data is None:
-        acessa_proc('DADOS', sql)
-    else:
-        acessa_proc('sp_uploadParaAlunos', sql)
-    return redirect('/admin')
+    cpf = form.cpf.data
+    acessa_proc('DADOS', sql)
+    acessa_proc('sp_uploadParaAlunos', sql)
+    if not cpf:
+        cpf = '000.000.000-00'
+    return redirect(url_for('escola',cpf=cpf))
 
 
 @app.route('/add', methods=['GET', 'POST'])
@@ -87,32 +122,31 @@ def index():
 def grafico():
     if session.get('user'):
         name = session.get('user')
+        return render_template('grafico.html', name=name)
     else:
         return redirect(url_for('signin'))
-    return render_template('grafico.html', name=name)
 
 
 @app.route('/graficoInfo')
 def graficoInfo():
-    data = acessa_proc('sp_selectQTDAlunos', '8')
-    a = ()
-    for aluns in data:
-        a = (aluns[0], aluns[1], (str(aluns[2])))
+    datas = acessa_proc('sp_selectQTDAlunos', '8')
     adata = []
-    adata.append(a)
-    fields = ['alunos', 'year', 'name']
-    dicts = [dict(zip(fields, d)) for d in adata]
-    return jsonify(text=dicts)
+    for aluns in datas:
+        a = (aluns[0], aluns[1], (str(aluns[2])))
+        adata.append(a)
+    fields = ["alunos", "year", "name"]
+    data = [dict(zip(fields, d)) for d in adata]
+    return json.dumps(data)
 
 
 @app.route('/protocolos', methods=['POST', 'GET'])
 def protocolos():
     if session.get('user'):
-        name  = session.get('user')
+        name = session.get('user')
         data  = acessa_proc('sp_selectProtocolo', '8')
+        return render_template('protocolos.html', name=name, data=data)
     else:
         return redirect(url_for('signin'))
-    return render_template('protocolos.html', name=name, data=data)
 
 
 @app.route('/indexProtocolo', methods=['POST', 'GET'])
@@ -130,10 +164,9 @@ def relatorio(name):
     if session.get('user'):
         name = session.get('user')
         dado = acessa_proc('sp_selectRelatorioCompleto', '8')
+        return render_template('relatorio.html', name=name)
     else:
         return redirect(url_for('signin'))
-    return render_template('relatorio.html', name=name)
-
 
 @app.route('/print_<name>.pdf')
 def print_pdf(name):
@@ -154,9 +187,9 @@ def controle():
         if form.assuntos.data is not None:
             dados = acessa_proc('InsereComunicado', sql)
             print dados
+        return render_template('controle.html', name=name, form=form)
     else:
         return redirect(url_for('signin'))
-    return render_template('controle.html', name=name, form=form)
 
 
 @app.route('/logout')
@@ -191,8 +224,8 @@ def signin():
 @app.route('/showSignUp')
 def showSignUp():
     if session.get('user'):
-        form = SignForm(request.form)
         name = session.get('user')
+        form = SignForm(request.form)
         return render_template('signup.html', form=form, name=name)
     else:
         return redirect(url_for('signin'))
